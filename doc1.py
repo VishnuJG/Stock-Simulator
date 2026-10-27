@@ -46,7 +46,9 @@ spacer2.grid(row=4, column=0)
 def myfun():
     inp = var1.get()
     inppass = var2.get()
-    # print(inp,inppass)
+    if not inp or not inppass:
+        print("Email and password cannot be empty.")
+        return
     loginframe.pack_forget()
     controlroom(inp, inppass)
 
@@ -79,7 +81,6 @@ def afterlogin(querystring, tablename, acc, passw):
         cursor = ps_connection.cursor()
         cursor.execute(querystring)
         colnames = [desc[0] for desc in cursor.description]
-        # tempres=""
         print(f"Fetching {tablename} details")
         result = cursor.fetchall()
         for i in range(len(result)):
@@ -104,7 +105,6 @@ def afterlogin(querystring, tablename, acc, passw):
 
 
 def outtabledisplay(colnames, result, tablename):
-    # clear_frame()
     global displaytable
     displaytable.pack_forget()
     displaytable = LabelFrame(root, text=tablename,
